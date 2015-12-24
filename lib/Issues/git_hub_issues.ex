@@ -4,8 +4,8 @@ defmodule Issues.GitHubIssues do
   def fetch(user, project) do
     IO.inspect "https://api.github.com/repos/#{user}/#{project}/issues" |>
     HTTPoison.get(@user_agent) |>
-    handle_response |>
-    Enum.sort( fn(x, y) -> x["created_at"] <= y["created_at"] end)
+    handle_response
+
   end
 
   def handle_response({:ok, %{status_code: 200, body: body}}) do
@@ -18,5 +18,4 @@ defmodule Issues.GitHubIssues do
     IO.puts "GitHub failed with error: #{message}"
     System.halt(2)
   end
-
 end
